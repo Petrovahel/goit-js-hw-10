@@ -1,10 +1,11 @@
 import iziToast from "izitoast";
 import "izitoast/dist/css/iziToast.min.css";
 
+const form = document.querySelector('.form');
 const delayInput = document.querySelector('#delay');
 const startBtn = document.querySelector('.create');
 
-startBtn.addEventListener('click', (e) => {
+form.addEventListener('submit', (e) => {
   e.preventDefault();
 
   const delayValue = Number(delayInput.value);
@@ -16,7 +17,6 @@ startBtn.addEventListener('click', (e) => {
   }
 
   const selectedState = selectedStateEl.value;
-
   startBtn.disabled = true;
 
   setTimeout(() => {

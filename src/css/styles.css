@@ -108,7 +108,7 @@ ul {
   color: #2e2f42;
 }
 
-#form {
+.form {
   max-width: 360px;
   width: 100%;
   display: flex;
