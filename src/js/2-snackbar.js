@@ -8,31 +8,41 @@ const startBtn = document.querySelector('.create');
 form.addEventListener('submit', (e) => {
   e.preventDefault();
 
-  const delayValue = Number(delayInput.value);
   const selectedStateEl = document.querySelector('input[name="state"]:checked');
-
   if (!selectedStateEl) {
     alert('Please select a state!');
     return;
   }
 
   const selectedState = selectedStateEl.value;
+  const delayValue = Number(delayInput.value);
   startBtn.disabled = true;
 
-  setTimeout(() => {
-    if (selectedState === 'fulfilled') {
+  const myPromise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (selectedState === 'fulfilled') {
+        resolve(`✅ Fulfilled promise in ${delayValue}ms`);
+      } else {
+        reject(`❌ Rejected promise in ${delayValue}ms`);
+      }
+    }, delayValue);
+  });
+
+  myPromise
+    .then((result) => {
       iziToast.success({
         title: 'Fulfilled',
-        message: `✅ Fulfilled promise in ${delayValue}ms`,
+        message: result,
         position: 'topRight',
       });
-    } else {
+      startBtn.disabled = false;
+    })
+    .catch((error) => {
       iziToast.error({
         title: 'Rejected',
-        message: `❌ Rejected promise in ${delayValue}ms`,
+        message: error,
         position: 'topRight',
       });
-    }
-    startBtn.disabled = false;
-  }, delayValue);
+      startBtn.disabled = false;
+    });
 });
